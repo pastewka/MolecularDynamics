@@ -13,6 +13,7 @@ nav_order: 2
 
 The student will...
 * ...be able to compile a C++ project with CMake.
+* ...be able to specify build types of a CMake project.
 
 ## Introduction
 
@@ -39,8 +40,7 @@ instructions also apply for Ubuntu installed within WSL.
 Once you have these things set up, open a command shell and type
 ```bash
 sudo apt-get update
-sudo apt-get install cmake gcc clang gdb build-essential git cmake-curses-gui valgrind
-sudo apt-get install openmpi-bin libopenmpi-dev 
+sudo apt-get install gcc make cmake cmake-curses-gui gdb valgrind mpi-default-dev
 ```
 Note that if you are on a different system than Ubuntu, these commands may differ.
 On [Ubuntu](https://ubuntu.com/)/[Debian](https://www.debian.org/) it is `apt` or `apt-get`
@@ -95,56 +95,24 @@ and want to learn more, see
 
 ### Compiling the code
 
-The template repository contains a file `main.cpp` that prints the string
-"Hello world!" to screen and a simple test `test_hello_world.cpp`. We need
-to instruct CMake to create what is called a `Makefile` that contains
-instructions how to build the code. CMake generally builds the code in a
-directory that is separate from the source directory. This is different from
-other build systems. We recommend that you create a directory `build` inside
-your source directory.
+At the root of your repository is a README file with the compilation
+instructions. It also describes in details how the repository is laid out and
+where you should add new files.
 
-First, navigate to the source code and create this directory:
-```bash
-cd yamd
-mkdir build
-cd build
-```
-
-Now, create the makefiles:
-```bash
-cmake ..
-```
-The argument to `cmake` tells it where the source code is located, here in
-the directory level just upwards of the current one (i.e. in `..`). You can
-also build in any other directory but then need to specify the appropriate
-path when running `cmake`.
-
-Note that `cmake` has lots of configuration options. To see those, run the
-text-based user interface:
-```bash
-ccmake ..
-```
-The additional `c` in front stands for `curses`, the library that is used to
-create the text-based user interface.
-
-You can now execute
-```bash
-make
-```
-to compile the code. Now run
-```bash
-./myproject
-tests/myproject_tests
-```
-If this worked, you have successfully compiled the hello world program and
-its tests.
+For now, follow the instructions to compile the code, run the first milestone
+executable and run the tests. Please refer to this README when you wish to add
+new files and push them to GitHub.
 
 ## Task summary
 
 This milestone requires the following tasks:
 
-* Create a repository for your code development from our template
-* Compile the template and run main exectuable and tests
+* Create a repository for your code development from our template.
+* Carefully read the `README.md` file in your fresh code repository.
+* Compile the template, run first milestone executable and tests, for the
+  following build configurations:
+  - `CMAKE_BUILD_TYPE=Debug`
+  - `CMAKE_BUILD_TYPE=Release`
 
 We provide the following files for you:
 
