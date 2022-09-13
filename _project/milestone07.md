@@ -75,7 +75,7 @@ We ask you to provide the following results in your final report:
 
 We ask you to provide and discuss the following figures in your final report:
 
-* Plot of the potential energy versus temperature
+* Plot of the total energy versus temperature
 * Plot of the melting point versus cluster size
 * Plot of the heat capacity versus cluster size
 * Plot of the latent heat versus cluster size
