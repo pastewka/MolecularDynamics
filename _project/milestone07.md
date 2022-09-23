@@ -50,7 +50,8 @@ $$C = \frac{d E}{d T}$$
 where \\(E\\) is the total energy. Note that in a thermodynamic context this is typically either measured at constant volume or at constant pressure, but since we are here dealing with an isolated object (the cluster) those concepts do not straightforwardly apply here.
 
 There are two strategies to measure the change of total energy with temperature and obtain a \\(E(T)\\) curve. You can either run constant temperature calculations and slowly ramp up the temperature, or you can run constant energy calculations slowly ramp up the energy. The latter is typically preferred since the total energy \\( E \\) is a constant of the dynamics. This means you can exactly control the energy while you can only control the mean temperature. We recommend to run NVE calculations and increase the energy stepwise, using the following rough protocol:
-* Deposit a defined amount of heat \\( \Delta Q \\) in your system, e.g. by rescaling the temperature
+* Deposit a defined amount of heat \\( \Delta Q \\) in your system, e.g. by
+  appropriately rescaling the velocities
 * Let the system relax for a time period \\( \tau_\text{relax}\\)
 * Sample (compute the average) temperature over a time period \\( \tau_\text{relax}\\)
 * Repeat these steps as often as necessary
@@ -75,7 +76,7 @@ We ask you to provide the following results in your final report:
 
 We ask you to provide and discuss the following figures in your final report:
 
-* Plot of the potential energy versus temperature
+* Plot of the total energy versus temperature
 * Plot of the melting point versus cluster size
 * Plot of the heat capacity versus cluster size
 * Plot of the latent heat versus cluster size

@@ -9,6 +9,23 @@ nav_order: 1
 
 # CMake
 
+[CMake](https://cmake.org/) is a tool that helps with compilation of C/C++ of
+more than just a few standalone files. We have seen in ["Organizing Code in
+C++"](code_organization) that compiling C++ files is usually done in two stages,
+the creation of object files and the linking of those objects. CMake will
+generate these compilation steps for you, provided you give it the right
+information about your project. In addition, CMake has the following advantages:
+
+- Cross-platform: the workflow to compile CMake project is identical accross
+  platforms, CMake will automatically identify the relevant compilers,
+  dependencies, etc., to use for your particular platform.
+- Handles multiple build systems as backend: by default on Linux it uses the
+  ubiquitous GNU Make program, but others can be employed instead.
+- It correctly handles library dependencies: these can be hard to setup
+  manually, especially in high-performance cluster environments.
+- Many IDEs recognize CMake projects: among them CLion, KDevelop, QtCreator,
+  etc.
+
 ## Adding subdirectories with separate executables
 
 For organizing your milestone codes, it can be useful to have seperate `main.cpp` files in seperate subdirectories that correspond to each milestone. A possible directory structure could look like this:
