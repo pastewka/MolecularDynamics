@@ -17,4 +17,4 @@ The lecture material will guide through the basics of the molecular dynamics sim
 
 * _Interatomic potentials:_ Martin H. Müser, Sergey V. Sukhomlinov, Lars Pastewka, Interatomic potentials: Achievements and challenges - [Link](https://doi.org/10.1080/23746149.2022.2093129)
 
-* _Statistical mechanics:_ James P. Sethna, Entropy, order parameters, and complexity, Oxford University Press - [Link](https://sethna.lassp.cornell.edu/StatMech/) | [PDF](https://sethna.lassp.cornell.edu/StatMech/EntropyOrderParametersComplexity20.pdf)
+* _Statistical mechanics:_ James P. Sethna, Entropy, order parameters, and complexity, Oxford University Press - [Link](https://sethna.lassp.cornell.edu/StatMech/), [PDF](https://sethna.lassp.cornell.edu/StatMech/EntropyOrderParametersComplexity20.pdf)
