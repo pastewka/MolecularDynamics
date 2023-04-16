@@ -2,10 +2,11 @@
 layout: default
 title: "Chapter 03"
 parent: Lecture
-date: 2023-04-15
+date: 2023-04-16
 categories: lecture
 author: Lars Pastewka
 nav_order: 03
+---
 ---
 
 <h2 class='chapterHead'><span class='titlemark'>Chapter 3</span><br />

@@ -2,10 +2,11 @@
 layout: default
 title: "Appendix A2"
 parent: Lecture
-date: 2023-04-15
+date: 2023-04-16
 categories: lecture
 author: Lars Pastewka
 nav_order: A2
+---
 ---
 
 <h2 class='chapterHead'><span class='titlemark'>Appendix 2</span><br />

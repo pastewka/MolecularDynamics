@@ -2,10 +2,11 @@
 layout: default
 title: "Appendix A1"
 parent: Lecture
-date: 2023-04-15
+date: 2023-04-16
 categories: lecture
 author: Lars Pastewka
 nav_order: A1
+---
 ---
 
 <h2 class='chapterHead'><span class='titlemark'>Appendix 1</span><br />
@@ -78,7 +79,7 @@ surface cannot become larger than its radius <span class='cmti-12'>a</span>.</p>
 <p class='indent'>We now consider systems for which <span class='cmti-12'>the net virtual work of the forces of</span> <span class='cmti-12'>constraint,</span> \(\sum _i\v {f}_i \cdot \delta \v {r}_i\) <span class='cmti-12'>,is zero</span>. This means the virtual displacements are perpendicular to the constraint forces. For equilibrium we then have, \begin {equation} \delta \mathcal {W}^\text {s} = \sum _i \v {F}_i^{a} \cdot \delta \v {r}_i = 0 \label {eq:virtualwork} \end {equation}<a id='x1-5003r22'></a>
 Equation \eqref{eq:virtualwork} is called the principle of virtual work, but it only describes equilibrium for static systems.</p>
 <!--    l. 239    -->
-<p class='indent'>The corresponding principle for dynamical systems goes back to James Bernoulli and was further developed by Jean le Rond D’Alembert. Newton’s equation of motion can be written as \begin {equation} \v{F}_i - \dot \v{p}_i = 0. \end {equation}<a id='x1-5004r23'></a> The condition for dynamic equilibrium can then be case into the virtual work formulation, \begin {equation} \delta \mathcal {W}^{d} = \sum _i\left ( \v {F}_i - \dot \v {p}_i \right ) \cdot \delta \v {r}_i = 0, \end
+<p class='indent'>The corresponding principle for dynamical systems goes back to James Bernoulli and was further developed by Jean le Rond D’Alembert. Newton’s equation of motion can be written as \begin {equation} \v {F}_i - \dot \v {p}_i = 0. \end {equation}<a id='x1-5004r23'></a> The condition for dynamic equilibrium can then be case into the virtual work formulation, \begin {equation} \delta \mathcal {W}^{d} = \sum _i\left ( \v {F}_i - \dot \v {p}_i \right ) \cdot \delta \v {r}_i = 0, \end
 {equation}<a id='x1-5005r24'></a> or when again considering only virtual displacements perpendicular to the constraint forces, \begin {equation} \delta \mathcal {W}^{d} = \sum _i\left ( \v {F}_i^a - \dot \v {p}_i \right ) \cdot \delta \v {r}_i = 0. \label {eq:dalemberts} \end {equation}<a id='x1-5006r25'></a> Equation \eqref{eq:dalemberts} is often referred to as <span class='cmti-12'>D’Alemberts principle</span>. In what follows, we will drop the superscript <span class='cmti-12'>a</span> for
 brevity.</p>
 <!--    l. 259    -->
