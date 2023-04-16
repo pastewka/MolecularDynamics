@@ -21,9 +21,9 @@ Embedded-atom method (EAM) potentials are good models for metallic systems. Thes
 
 ## EAM potential
 
-We provide an implementation of an EAM potential here: [gupta.h](gupta.h) [gupta.cpp](gupta.cpp) [test_gupta.cpp](test_gupta.cpp) Incorporate this potential into your code and your tests. You are of course also welcome to implement an EAM potential yourself. If you do, please point this out to us in your final report.
+We provide an implementation of an EAM potential here: [ducastelle.h](ducastelle.h) [ducastelle.cpp](ducastelle.cpp) [test_ducastelle.cpp](test_ducastelle.cpp) Incorporate this potential into your code and your tests. You are of course also welcome to implement an EAM potential yourself. If you do, please point this out to us in your final report.
 
-The specific code provided by us is an implementation of the method developed by [Gupta](https://doi.org/10.1103/PhysRevB.23.6265) and [Cleri & Rosato](https://doi.org/10.1103/PhysRevB.48.22). The default parameters are Cleri & Rosato's parameterization for gold. EAM variants typically differ by the functional forms employed for density, embedding energy and repulsion and can be easily adopted by modifying this code. Look at the code we provide for you and try to understand it and its test.
+The specific code provided by us is an implementation of the method developed by [Ducastelle](https://doi.org/10.1051/jphys:019700031011-120105500), [Gupta](https://doi.org/10.1103/PhysRevB.23.6265) and [Cleri & Rosato](https://doi.org/10.1103/PhysRevB.48.22). The default parameters are Cleri & Rosato's parameterization for gold. EAM variants typically differ by the functional forms employed for density, embedding energy and repulsion and can be easily adopted by modifying this code. Look at the code we provide for you and try to understand it and its test.
 
 ## Gold clusters
 
@@ -62,7 +62,7 @@ Make sure you increase the temperature beyond the melting point of the cluster. 
 
 This milestone requires the following tasks:
 
-* Incorporate the Gupta EAM potential into your code
+* Incorporate the Ducastelle EAM potential into your code
 * Measure the heat capacity and latent heat of gold clusters as function of their size
 
 Optional:
@@ -83,7 +83,7 @@ We ask you to provide and discuss the following figures in your final report:
 
 We provide the following files for you:
 
-* [gupta.h](gupta.h)
-* [gupta.cpp](gupta.cpp)
-* [test_gupta.cpp](test_gupta.cpp)
+* [ducastelle.h](ducastelle.h)
+* [ducastelle.cpp](ducastelle.cpp)
+* [test_ducastelle.cpp](test_ducastelle.cpp)
 

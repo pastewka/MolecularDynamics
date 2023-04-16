@@ -24,16 +24,17 @@
 
 #include <iostream>
 
-#include "gupta.h"
+#include "ducastelle.h"
 
 /*
  * This is the embedded atom method potential described in
+ *     Ducastelle, "Modules élastiques des métaux de transition", J. Phys. 31, 1055 (1970)
  *     Gupta, "Lattice relaxation at a metal surface", Phys. Rev. B 23, 6265 (1981)
  *     Cleri, Rosato, "Tight-binding potentials for transition metals and alloys", Phys. Rev. B 48, 22 (1993)
  * The default values for the parameters are the Au parameters from Cleri & Rosato's paper.
  */
-double gupta(Atoms &atoms, const NeighborList &neighbor_list, double cutoff, double A, double xi, double p, double q,
-             double re) {
+double ducastelle(Atoms &atoms, const NeighborList &neighbor_list, double cutoff, double A, double xi, double p,
+                  double q, double re) {
     auto cutoff_sq{cutoff * cutoff};
     double xi_sq{xi * xi};
 

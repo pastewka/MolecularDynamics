@@ -25,10 +25,10 @@
 #include <gtest/gtest.h>
 
 #include "atoms.h"
-#include "gupta.h"
+#include "ducastelle.h"
 #include "neighbors.h"
 
-TEST(GuptaTest, Forces) {
+TEST(DucastelleTest, Forces) {
     constexpr int nx = 2, ny = 2, nz = 2;
     constexpr double lattice_constant = 1.5;
     constexpr double cutoff = 5.0;
@@ -55,7 +55,7 @@ TEST(GuptaTest, Forces) {
 
     neighbor_list.update(atoms);
     atoms.forces.setZero();
-    double e0{gupta(atoms, neighbor_list, cutoff, A, xi, p, q, re)};
+    double e0{ducastelle(atoms, neighbor_list, cutoff, A, xi, p, q, re)};
     Forces_t forces0{atoms.forces};
 
     // loop over all atoms and compute forces from a finite differences approximation
@@ -65,11 +65,11 @@ TEST(GuptaTest, Forces) {
             // move atom to the right
             atoms.positions(j, i) += delta;
             neighbor_list.update(atoms);
-            double eplus{gupta(atoms, neighbor_list, cutoff, A, xi, p, q, re)};
+            double eplus{ducastelle(atoms, neighbor_list, cutoff, A, xi, p, q, re)};
             // move atom to the left
             atoms.positions(j, i) -= 2 * delta;
             neighbor_list.update(atoms);
-            double eminus{gupta(atoms, neighbor_list, cutoff, A, xi, p, q, re)};
+            double eminus{ducastelle(atoms, neighbor_list, cutoff, A, xi, p, q, re)};
             // move atom back to original position
             atoms.positions(j, i) += delta;
 

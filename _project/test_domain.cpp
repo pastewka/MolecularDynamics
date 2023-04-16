@@ -27,7 +27,7 @@
 
 #include "atoms.h"
 #include "domain.h"
-#include "gupta.h"
+#include "ducastelle.h"
 #include "neighbors.h"
 #include "units.h"
 #include "verlet.h"
@@ -245,8 +245,8 @@ TEST(DomainDecomposition, update_ghosts) {
 class DomainDecompositionTest : public testing::TestWithParam<Eigen::Array3i> {
 };
 
-TEST_P(DomainDecompositionTest, Gupta_energy_and_forces) {
-    constexpr double cutoff = 5.0;  // Cutoff for the Gupta potential
+TEST_P(DomainDecompositionTest, Ducastelle_energy_and_forces) {
+    constexpr double cutoff = 5.0;  // Cutoff for the Ducastelle potential
 
     // Get size of communicator group (number of processes)
     int size;
@@ -271,7 +271,7 @@ TEST_P(DomainDecompositionTest, Gupta_energy_and_forces) {
     // Compute energy on a single process
     NeighborList neighbor_list;
     neighbor_list.update(atoms, cutoff);
-    double epot_ref{gupta(atoms, neighbor_list, cutoff)};
+    double epot_ref{ducastelle(atoms, neighbor_list, cutoff)};
     Forces_t forces_ref{atoms.forces};
 
     // Get minimum and maximum x-position and move cluster into the domain (that starts at x=0)
@@ -297,7 +297,7 @@ TEST_P(DomainDecompositionTest, Gupta_energy_and_forces) {
     neighbor_list.update(atoms, cutoff);
     atoms.energies.setZero();
     atoms.forces.setZero();
-    gupta(atoms, neighbor_list, cutoff);
+    ducastelle(atoms, neighbor_list, cutoff);
 
     // We only sum the energy of the process-local atoms
     double epot{atoms.energies(Eigen::seqN(0, comm.nb_local())).sum()};
@@ -317,8 +317,8 @@ TEST_P(DomainDecompositionTest, Gupta_energy_and_forces) {
     }
 }
 
-TEST_P(DomainDecompositionTest, Gupta_moving_cluster) {
-    constexpr double cutoff = 5.0;  // Cutoff for the Gupta potential
+TEST_P(DomainDecompositionTest, Ducastelle_moving_cluster) {
+    constexpr double cutoff = 5.0;  // Cutoff for the Ducastelle potential
 
     // Get size of communicator group (number of processes)
     int size;
@@ -340,7 +340,7 @@ TEST_P(DomainDecompositionTest, Gupta_moving_cluster) {
     // Compute energy on a single process
     NeighborList neighbor_list;
     neighbor_list.update(atoms, cutoff);
-    double epot_ref{gupta(atoms, neighbor_list, cutoff)};
+    double epot_ref{ducastelle(atoms, neighbor_list, cutoff)};
 
     // Get minimum and maximum x-position and move cluster into the domain (that starts at x=0)
     constexpr double vacuum = 2.5;  // distance to domain boundary on left and right
@@ -375,7 +375,7 @@ TEST_P(DomainDecompositionTest, Gupta_moving_cluster) {
         neighbor_list.update(atoms, cutoff);
         atoms.energies.setZero();
         atoms.forces.setZero();
-        gupta(atoms, neighbor_list, cutoff);
+        ducastelle(atoms, neighbor_list, cutoff);
         atoms.forces.setZero();  // constant velocity
 
         // We only sum the energy of the process-local atoms
