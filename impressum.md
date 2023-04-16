@@ -13,7 +13,7 @@ Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV
 
 Prof. Dr. Lars Pastewka <br>
 Albert-Ludwigs-Universität <br>
-IMTEK - Institut für Mikrosystemtechnik <br>
+Institut für Mikrosystemtechnik <br>
 Professur für Simulation <br>
 Georges-Koehler-Allee 103, 3. OG <br>
 79110 Freiburg
@@ -21,7 +21,7 @@ Georges-Koehler-Allee 103, 3. OG <br>
 Kontakt
 -------
 
-Telefon: +49 761 203 67723 <br>
+Telefon: +49 761 203 67480 <br>
 E-Mail: lars.pastewka@imtek.uni-freiburg.de
 
 Datenschutzerklärung (DSGVO)
