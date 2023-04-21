@@ -58,6 +58,10 @@ There are two strategies to measure the change of total energy with temperature 
 
 Make sure you increase the temperature beyond the melting point of the cluster. The plot \\(E(T)\\) shows you the heat capacity but also something else near the melting temperature. Describe what you see and why. Repeat the numerical experiment for different cluster sizes and plot melting point, heat capacity and latent heat as a function of cluster size.
 
+<video width="600" height="600">
+<source src="./gold_cluster_melt.mp4" type="video/mp4">
+</video>
+
 ## Task summary
 
 This milestone requires the following tasks:
