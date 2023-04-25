@@ -8,10 +8,10 @@ double square_and_sum(double * v, int n) {
 }
 
 int main() {
-  int n = 20;
-  double * v = new double[n];
-  square_and_sum(v, n);
-  delete[] v;
+  std::size_t n = 5;
+  double * v1 = new double[n];
+  square_and_sum(v1, n);
+  delete[] v1;
   return 0;
 }
 

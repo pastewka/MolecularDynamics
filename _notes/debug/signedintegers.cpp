@@ -1,19 +1,21 @@
 #include <vector>
 #include <iostream>
 
-void assign(std::vector<double>& v, double dx) {
+void assign(std::vector<std::pair<double, double>>& v, double dx) {
   std::size_t n = v.size();
-  for (std::size_t k = 0; k < n; k++)
-    v[k] = dx * (k - n);
+  for (std::size_t k = 0; k < n; k++) {
+    auto& [a, b] = v[k]; // structured binding to get references to pair values
+    a = dx * (n - k);
+    b = dx * (k - n);
+  }
 }
 
 int main() {
-  std::vector<double> v(3);
+  std::vector<std::pair<double, double>> v(3);
   double increment = 0.2;
   assign(v, increment);
-
-  for (auto&& val : v)
-    std::cout << val << " ";
-  std::cout << "\n";
+  // Structured binding (C++17) pair -> 2 variables
+  for (auto [a, b] : v)
+    std::cout << "a = " << a << ", b = " << b << '\n';
   return 0;
 }
