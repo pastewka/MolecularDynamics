@@ -7,10 +7,12 @@ author : Lucas Frérot
 nav_order: 3
 ---
 
+# Debugging code in C++
+
 Recognizing and debugging errors is a fundamental skill when programming in C++,
 as is writing safe, expressive, and modern C++. We will cover the basics in this note.
 
-# Prerequisites
+## Prerequisites
 
 Make sure you have a full GCC, GDB and CMake installation:
 
@@ -27,7 +29,7 @@ We'll work on the following files, which you can now download:
 - [outofbounds.cpp](debug/outofbounds.cpp)
 - [signedintegers.cpp](debug/signedintegers.cpp)
 
-# Compile
+## Compile
 
 Run the standard CMake workflow to get started:
 
