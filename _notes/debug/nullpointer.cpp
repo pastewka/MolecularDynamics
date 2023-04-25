@@ -1,5 +1,4 @@
 #include <iostream>
-#include <memory>
 
 void set_to_one(int& value) {
   value = 1;
