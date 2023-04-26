@@ -1,3 +1,5 @@
+#include <cstddef>
+
 double square_and_sum(double * v, int n) {
   double res = 0;
   for (int i = 1; i <= n; ++i) {

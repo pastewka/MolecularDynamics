@@ -36,7 +36,7 @@ Run the standard CMake workflow to get started:
 ```bash
 mkdir build
 cd build
-cmake -DCMAKE_BUILD_TYPE ..
+cmake -DCMAKE_BUILD_TYPE=Debug ..
 make
 
 # To compile after changes to sources:
