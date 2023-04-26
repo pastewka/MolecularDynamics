@@ -1,5 +1,5 @@
 #include <array>
-#include <Eigen/Dense>
+#include <Eigen/Core>
 
 Eigen::Vector3d unit_3d_eigen_vector() {
   Eigen::Vector3d v{{0, 0, 1}};

@@ -1,7 +1,7 @@
 #include <cstddef>
 #include <span>
 #include <vector>
-#include <Eigen/Dense>
+#include <Eigen/Core>
 
 double square_and_sum(std::span<double> v) {
   double res = 0;
