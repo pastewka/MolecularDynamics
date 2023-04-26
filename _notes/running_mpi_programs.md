@@ -4,7 +4,7 @@ title:  "Running MPI programs"
 parent: Notes
 categories: notes
 author : Lars Pastewka
-nav_order: 4
+nav_order: 5
 ---
 
 # Running MPI programs

@@ -4,7 +4,7 @@ title:  "C++ References and Pointers"
 parent: Notes
 categories: notes
 author : Lucas Frérot
-nav_order: 3
+nav_order: 4
 ---
 
 # C++ References and Pointers
