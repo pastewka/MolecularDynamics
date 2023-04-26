@@ -77,3 +77,15 @@ needs compilation **and** link flags:
 add_compile_options(-fsanitize=address)
 add_link_options(-fsanitize=address)
 ```
+
+
+## Fixed files
+
+Below are versions of the files above where we used idiomatic C++, the standard
+library and Eigen instead of C++-flavoured C:
+
+- [CMakeLists.txt](debug/fixed/CMakeLists.txt)
+- [nullpointer.cpp](debug/fixed/nullpointer.cpp)
+- [localaddress.cpp](debug/fixed/localaddress.cpp)
+- [outofbounds.cpp](debug/fixed/outofbounds.cpp)
+- [signedintegers.cpp](debug/fixed/signedintegers.cpp)
