@@ -17,6 +17,19 @@ double square_and_sum(Eigen::Ref<Eigen::ArrayXd> v) {
   return v.sum();
 }
 
+#if 0
+// Version of the function with bounds checking in "Debug" mode
+double square_and_sum(Eigen::Ref<Eigen::ArrayXd> v) {
+  double res = 0;
+  // This will access out-of-bounds in "Release" mode!
+  for (int i = 1; i <= v.size(); ++i) {
+    v(i) *= v(i);
+    res += v(i);
+  }
+  return res;
+}
+#endif
+
 int main() {
   std::size_t n = 5;
   std::vector<double> v1(n);
