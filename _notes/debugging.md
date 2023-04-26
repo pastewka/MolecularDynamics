@@ -29,6 +29,8 @@ We'll work on the following files, which you can now download:
 - [outofbounds.cpp](debug/outofbounds.cpp)
 - [signedintegers.cpp](debug/signedintegers.cpp)
 
+Put these files in a folder **seperate** from the class project.
+
 ## Compile
 
 Run the standard CMake workflow to get started:
