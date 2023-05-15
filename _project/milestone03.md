@@ -65,10 +65,10 @@ auto pos2{positions.col(1)};
 This yields _column_ with index \\(1\\), but each column stores the three Cartesian components of the position
 in our case. You can for example compute the distance vector between two atoms \\(i\\) and \\(j\\) using
 ```c++
-Eigen::Array3d distance_vector{positions.col(i) - positions.col(j)};
+Eigen::Vector3d distance_vector{positions.col(i) - positions.col(j)};
 ```
 Note that in the above example we have use the [`auto`](https://en.cppreference.com/w/cpp/language/auto) keyword
-to automatically derive the type, while in the second case we have explicitly used the data type [`Eigen::Array3d`](https://eigen.tuxfamily.org/dox/group__arraytypedefs.html)
+to automatically derive the type, while in the second case we have explicitly used the data type [`Eigen::Vector3d`](https://eigen.tuxfamily.org/dox/group__TutorialMatrixClass.html)
 for the distance vector. The curly brackets are a [non-narrowing initialization](https://en.cppreference.com/w/cpp/language/direct_initialization). This type of initialization avoids implicit type conversion and should be prefered over
 copy initialization or narrowing initialization (with round parenthesis).
 
@@ -77,8 +77,8 @@ copy initialization or narrowing initialization (with round parenthesis).
 You are now in a position to turn your integrator into one that accepts multiple atoms.
 We suggest to use the following signature for the integrators:
 ```c++
-#ifndef __VERLET_H
-#define __VERLET_H
+#ifndef VERLET_H
+#define VERLET_H
 
 #include <Eigen/Dense>
 
@@ -86,7 +86,7 @@ void verlet_step1(Eigen::Array3Xd &positions, Eigen::Array3Xd &velocities,
                   const Eigen::Array3Xd &forces, double timestep);
 void verlet_step2(Eigen::Array3Xd &velocities, const Eigen::Array3Xd &forces, double timestep);
 
-#endif  // __VERLET_H
+#endif  // VERLET_H
 ```
 The [`const` qualifier](https://en.cppreference.com/w/c/language/const) tells the compiler that a modification
 of that argument is not allowed, although it is passed as a reference.
@@ -115,6 +115,7 @@ Update the tests such that they test your modified integrator. These tests shoul
 same time.
 
 [Eigen arrays]: https://eigen.tuxfamily.org/dox/group__TutorialArrayClass.html
+[Eigen matrices and vectors]: https://eigen.tuxfamily.org/dox/group__TutorialMatrixClass.html
 
 ## Task summary
 
