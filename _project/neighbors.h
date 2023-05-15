@@ -70,12 +70,15 @@ class NeighborList {
         return seed_(i + 1) - seed_(i);
     }
 
-    class iterator
-        : public std::iterator<std::input_iterator_tag,
-                               std::tuple<int, int>,    // value_type
-                               std::tuple<int, int>,    // difference_type
-                               std::tuple<int, int> *,  // pointer
-                               std::tuple<int, int>> {  // reference
+    class iterator {
+      // Defining types to be used in std::iterator_traits
+      // see https://en.cppreference.com/w/cpp/iterator/iterator_traits
+      using value_type = std::tuple<int, int>;
+      using difference_type = std::tuple<int, int>;
+      using pointer = std::tuple<int, int>*;
+      using reference = std::tuple<int, int>;
+      using iterator_category = std::input_iterator_tag;
+
       public:
         explicit iterator(const Eigen::ArrayXi &seed,
                           const Eigen::ArrayXi &neighbors, int i, int n)
