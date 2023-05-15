@@ -31,7 +31,16 @@ A gold cluster consists of just gold atoms and is characterized by its total num
 
 ![Maykay icosahedron consisting of 3871 atoms](cluster_3871.png)
 
-A special structure is the [Mackay icosahedron](http://doye.chem.ox.ac.uk/jon/structures/Morse/paper/node6.html) (an example is shown above), that forms a cluster whose surfaces do not contain defects and are perfect atomic planes with (111) crystal orientation. We have created two Mackay icosahedra for you, one with [923 atoms](cluster_923.xyz) and another one with [3871 atoms](cluster_3871.xyz) using the [Maykay Icosahedron Structure Generator of Yanting Wang](http://www.pas.rochester.edu/~wangyt/algorithms/ih/). Download these coordinate files and inspect them with Ovito. Use these structures as starting point for your investigation.
+A special structure is the [Mackay
+icosahedron](http://doye.chem.ox.ac.uk/jon/structures/Morse/paper/node6.html)
+(an example is shown above), that forms a cluster whose surfaces do not contain
+defects and are perfect atomic planes with (111) crystal orientation. We have
+created two Mackay icosahedra for you, one with [923 atoms](cluster_923.xyz) and
+another one with [3871 atoms](cluster_3871.xyz) using the [Maykay Icosahedron
+Structure Generator of Yanting Wang](mackay.zip) ([original
+source](http://www.pas.rochester.edu/~wangyt/algorithms/ih/)). Download these
+coordinate files and inspect them with Ovito. Use these structures as starting
+point for your investigation.
 
 ## Units and time step
 
