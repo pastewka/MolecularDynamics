@@ -36,15 +36,15 @@ BM_GEMV_vectors_nested/64          1060 ns         1060 ns       651695
 BM_GEMV_vectors_nested/512       110290 ns       110262 ns         6285
 BM_GEMV_vectors_nested/4096    10523839 ns     10523361 ns           66
 BM_GEMV_vectors_nested/16384  161720614 ns    161711957 ns            4
-BM_GEMV_vectors_nested_BigO        0.60 N^2        0.60 N^2  
-BM_GEMV_vectors_nested_RMS            1 %             1 %    
+BM_GEMV_vectors_nested_BigO        0.60 N^2        0.60 N^2
+BM_GEMV_vectors_nested_RMS            1 %             1 %
 BM_GEMV_eigen/8                    23.8 ns         23.8 ns     29430446
 BM_GEMV_eigen/64                    395 ns          395 ns      1780985
 BM_GEMV_eigen/512                 40374 ns        40364 ns        17419
 BM_GEMV_eigen/4096              2307290 ns      2307168 ns          303
 BM_GEMV_eigen/16384            37415095 ns     37404881 ns           19
-BM_GEMV_eigen_BigO                 0.14 N^2        0.14 N^2  
-BM_GEMV_eigen_RMS                     0 %             0 %    
+BM_GEMV_eigen_BigO                 0.14 N^2        0.14 N^2
+BM_GEMV_eigen_RMS                     0 %             0 %
 ```
 
 You can see that the eigen benchmark is approximately 4 times faster than the
@@ -97,6 +97,41 @@ set with the `Range(8, 8 << 11)` function which specifies that it ranges from
 library that we want it to estimate the multiplicative constant of the O(N²)
 complexity of our code.
 
+### Progressive benchmarking of matrix-vector product
+
+Add new benchmarks for the following implementations:
+
+- `A` is a "flat" `std::vector<double>`, in row-major order, that is `result[i]
+  = A[i * N + j]`
+- `A` is a "flat" `std::vector<double>`, in col-major order, that is `result[i]
+  = A[i + N * j]`
+
+Compare the time both benchmarks, change the order of the loops and see how that
+can affect performance. Look at the generated assembly code with Perf (see
+below) and compare the row-major and col-major cases. You should be able to see
+different instructions for the row-major and col-major cases (scalar
+instructions like `addsd` vs packed instructions like `addpd`, which process 4
+doubles per cycle). Comparing loop orders for a single layout (say col-major),
+you shold be able to see that the CPU spends most of its time on `movupd`
+instructions when the order of loops is wrong: it spends most of its time
+waiting for data. You can also try compiling with
+`-DCMAKE_CXX_FLAGS="-fno-tree-vectorize"` to disable the vectorized (SIMD, or
+packed) instructions, and see what kind of optimization the compiler still does
+to the col-major case.
+
+Now add a col-major multiplication with `A`, `v` and `result` as Eigen matrices
+instead of vectors. Compare the performance to the col-major `std::vector`
+implementation. Measure the cache misses with `perf stat -e cache-misses` and
+compare the col-major `std::vector` benchmark with the Eigen col-major benchmark.
+
+Finally write a col-major multiplication with `std::vector<double,
+aligned_allocator<double>>`, which aligns the memory in the same way as Eigen
+matrices, and compare the performance. Determine why the `result = A * v` Eigen
+benchmark is slower for small matrices than our loop implementations.
+
+The file with all the benchmarks can be found here:
+[gemv_benchmarks.cpp](fixed/gemv_benchmarks.cpp).
+
 ## Perf
 
 [Perf](https://perf.wiki.kernel.org/index.php/Main_Page) is an open-source,
@@ -136,27 +171,27 @@ The simplest Perf use is to print statistics about a program's execution with
 ```
 Performance counter stats for './myprogram':
 
-           5351.55 msec task-clock                       #    1.000 CPUs utilized          
-                42      context-switches                 #    7.848 /sec                   
-                 4      cpu-migrations                   #    0.747 /sec                   
-            707061      page-faults                      #  132.123 K/sec                  
-       24955468639      cpu_core/cycles/                 #    4.663 G/sec                  
+           5351.55 msec task-clock                       #    1.000 CPUs utilized
+                42      context-switches                 #    7.848 /sec
+                 4      cpu-migrations                   #    0.747 /sec
+            707061      page-faults                      #  132.123 K/sec
+       24955468639      cpu_core/cycles/                 #    4.663 G/sec
      <not counted>      cpu_atom/cycles/                                              (0.00%)
-       61525161899      cpu_core/instructions/           #   11.497 G/sec                  
+       61525161899      cpu_core/instructions/           #   11.497 G/sec
      <not counted>      cpu_atom/instructions/                                        (0.00%)
-        7850524521      cpu_core/branches/               #    1.467 G/sec                  
+        7850524521      cpu_core/branches/               #    1.467 G/sec
      <not counted>      cpu_atom/branches/                                            (0.00%)
-          19301338      cpu_core/branch-misses/          #    3.607 M/sec                  
+          19301338      cpu_core/branch-misses/          #    3.607 M/sec
      <not counted>      cpu_atom/branch-misses/                                       (0.00%)
-      149655475560      cpu_core/slots/                  #   27.965 G/sec                  
-       56421087566      cpu_core/topdown-retiring/       #     37.1% Retiring              
-        3521305307      cpu_core/topdown-bad-spec/       #      2.3% Bad Speculation       
-       24663886105      cpu_core/topdown-fe-bound/       #     16.2% Frontend Bound        
-       67491685056      cpu_core/topdown-be-bound/       #     44.4% Backend Bound         
-        1173768435      cpu_core/topdown-heavy-ops/      #      0.8% Heavy Operations       #     36.3% Light Operations      
-        3521305307      cpu_core/topdown-br-mispredict/  #      2.3% Branch Mispredict      #      0.0% Machine Clears        
-        6873757561      cpu_core/topdown-fetch-lat/      #      4.5% Fetch Latency          #     11.7% Fetch Bandwidth       
-       27000267908      cpu_core/topdown-mem-bound/      #     17.8% Memory Bound           #     26.6% Core Bound            
+      149655475560      cpu_core/slots/                  #   27.965 G/sec
+       56421087566      cpu_core/topdown-retiring/       #     37.1% Retiring
+        3521305307      cpu_core/topdown-bad-spec/       #      2.3% Bad Speculation
+       24663886105      cpu_core/topdown-fe-bound/       #     16.2% Frontend Bound
+       67491685056      cpu_core/topdown-be-bound/       #     44.4% Backend Bound
+        1173768435      cpu_core/topdown-heavy-ops/      #      0.8% Heavy Operations       #     36.3% Light Operations
+        3521305307      cpu_core/topdown-br-mispredict/  #      2.3% Branch Mispredict      #      0.0% Machine Clears
+        6873757561      cpu_core/topdown-fetch-lat/      #      4.5% Fetch Latency          #     11.7% Fetch Bandwidth
+       27000267908      cpu_core/topdown-mem-bound/      #     17.8% Memory Bound           #     26.6% Core Bound
 
        5.353088508 seconds time elapsed
 
@@ -206,3 +241,4 @@ look at its assembly code and which instructions take the most time.
   with the `s` key in Perf)
 - `./bench --benchmark_filter=<filter_string>` runs only a subset of benchmarks
 - `./bench --benchmark_format=csv` outputs a CSV, can be piped to a plot script
+  (e.g. the one above)

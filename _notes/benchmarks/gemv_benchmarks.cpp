@@ -2,6 +2,9 @@
 #include <benchmark/benchmark.h>
 #include <vector>
 
+#define MY_BENCHMARK(function)                                                 \
+  BENCHMARK(function)->Range(8, 8 << 11)->Complexity(benchmark::oNSquared)
+
 using namespace Eigen;
 
 static void BM_GEMV_vectors_nested(benchmark::State& state) {
@@ -24,9 +27,7 @@ static void BM_GEMV_vectors_nested(benchmark::State& state) {
   state.SetComplexityN(N);
 }
 
-BENCHMARK(BM_GEMV_vectors_nested)
-    ->Range(8, 8 << 11)
-    ->Complexity(benchmark::oNSquared);
+MY_BENCHMARK(BM_GEMV_vectors_nested);
 
 /* ----------------------------------------------------------------------- */
 static void BM_GEMV_eigen(benchmark::State& state) {
@@ -41,7 +42,7 @@ static void BM_GEMV_eigen(benchmark::State& state) {
   state.SetComplexityN(N);
 }
 
-BENCHMARK(BM_GEMV_eigen)->Range(8, 8 << 11)->Complexity(benchmark::oNSquared);
+MY_BENCHMARK(BM_GEMV_eigen);
 
 /* ----------------------------------------------------------------------- */
 BENCHMARK_MAIN();
