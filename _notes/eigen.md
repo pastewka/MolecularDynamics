@@ -1,6 +1,6 @@
 ---
 layout: default
-title:  "Debugging"
+title:  "Eigen"
 parent: Notes
 categories: notes
 author : Lucas Frérot
