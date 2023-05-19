@@ -127,4 +127,29 @@ static void BM_GEMV_eigen(benchmark::State& state) {
 MY_BENCHMARK(BM_GEMV_eigen);
 
 /* ----------------------------------------------------------------------- */
+static void BM_GEMV_eigen_fixed_size_inline(benchmark::State& state) {
+  Matrix<double, 4, 4> A;
+  Vector<double, 4> result, v;
+
+  for (auto _ : state) {
+    auto data = result.data();      // creating named variable important here
+    benchmark::DoNotOptimize(data); // tell the compiler that data is important
+                                    // this prevents optimization of the gemv
+
+    // the generated assembly code for the matrix-vector product should be:
+    // - vectorized: mulpd and addpd instructions for computation, movupd/movapd
+    // - unrolled: no jumps or comparisons, no loop counter
+    // - inlined: no call instruction to an external function
+    result = A * v;
+  }
+
+  // see
+  // https://github.com/google/benchmark/blob/main/docs/user_guide.md#preventing-optimization
+  // for more info on preventing optimizations (do not use outside of
+  // benchmarks!)
+}
+
+BENCHMARK(BM_GEMV_eigen_fixed_size_inline);
+
+/* ----------------------------------------------------------------------- */
 BENCHMARK_MAIN();
