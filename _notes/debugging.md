@@ -148,6 +148,8 @@ Notable other GDB commands:
 - `finish`: resume execution until current function returns
 - `until`: resume execution until a source line "greater" than the current
   location---essentially until the end of a scope (loop, if statement, etc.)
+- `C-l` (Ctrl+L) refresh display: sometimes display of the source gets weird,
+  `C-l` refreshes the source display so it's clear again
 
 ### Memory leaks
 
