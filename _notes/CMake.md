@@ -11,9 +11,9 @@ nav_order: 1
 
 [CMake](https://cmake.org/) is a tool that helps with compilation of C/C++ of
 more than just a few standalone files. We have seen in ["Organizing Code in
-C++"](code_organization) that compiling C++ files is usually done in two stages,
-the creation of object files and the linking of those objects. CMake will
-generate these compilation steps for you, provided you give it the right
+C++"](code_organization.md) that compiling C++ files is usually done in two
+stages, the creation of object files and the linking of those objects. CMake
+will generate these compilation steps for you, provided you give it the right
 information about your project. In addition, CMake has the following advantages:
 
 - Cross-platform: the workflow to compile CMake project is identical accross
