@@ -129,6 +129,12 @@ aligned_allocator<double>>`, which aligns the memory in the same way as Eigen
 matrices, and compare the performance. Determine why the `result = A * v` Eigen
 benchmark is slower for small matrices than our loop implementations.
 
+You can find a comparison between fixed-size and dynamic-size matrix-vector
+products with Eigen [here](https://godbolt.org/z/75z41vaKW): you can see that
+the `A * v` operation for fixed-size matrices gets inlined (the `call`
+instruction is replaced with the function content), whereas for dynamic matrices
+the `call` remains.
+
 The file with all the benchmarks can be found here:
 [gemv_benchmarks.cpp](fixed/gemv_benchmarks.cpp).
 
