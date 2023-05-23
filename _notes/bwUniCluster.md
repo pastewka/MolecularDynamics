@@ -79,6 +79,10 @@ make
 
 bwUniCluster has extensive documentation that can be found here: <https://www.bwhpc-c5.de/wiki/index.php/Category:BwUniCluster>. Simulations are typically run as batch jobs. They have to be submitted through a batch or queueing system that takes care of assigning the actual hardware (compute node) to your job. A description of the queueing system can be found [here](https://wiki.bwhpc.de/wiki/index.php?title=BwUniCluster_2.0_Slurm_common_Features). Please make sure you understand the concept of a _partition_ described [here](https://wiki.bwhpc.de/wiki/index.php?title=BwUniCluster_2.0_Batch_Queues).
 
+**IMPORTANT**: never *ever* run a simulation on the front/login node (i.e.
+without submitting a job using the `sbatch` command, see below). Your access to
+bwUniCluster could be revoked if you do this.
+
 ### Job scripts
 
 To run you job, you need to write a job script. The job script is executed by the `bash` command which is the shell that you are using on Linux systems. (See the first tutorial [here](https://ilias.uni-freiburg.de/data/unifreiburg/lm_data/lm_1926798/Part_1_Unix_shell.html) for an introduction to the shell.) The job script specifies how many CPUs you require for your job, how to set up the software environment and how to execute your job. An example job script (you can use this one almost as is) looks like this:
