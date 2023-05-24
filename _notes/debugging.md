@@ -150,6 +150,7 @@ Notable other GDB commands:
   location---essentially until the end of a scope (loop, if statement, etc.)
 - `C-l` (Ctrl+L) refresh display: sometimes display of the source gets weird,
   `C-l` refreshes the source display so it's clear again
+- `print *pointer@N` prints `N` values starting at address `pointer`
 
 ### Memory leaks
 
@@ -169,3 +170,60 @@ library and Eigen instead of C++-flavoured C:
 - [localaddress.cpp](debug/fixed/localaddress.cpp)
 - [outofbounds.cpp](debug/fixed/outofbounds.cpp)
 - [signedintegers.cpp](debug/fixed/signedintegers.cpp)
+
+## Priting Eigen objects in GDB
+
+Let's work with the following file:
+
+```c++
+#include <Eigen/Core>
+
+int main() {
+  Eigen::Array4d static_{0, 1, 2, 3};
+  Eigen::ArrayXd dynamic_(4);
+
+  dynamic_ << 0, 1, 2, 3;
+  return 0;
+}
+```
+
+When debugging, we'd like to know the contents of both arrays. If we use the
+`print` command on one of these objects we have a verbose output:
+
+```
+(gdb) print static_
+$1 = {<Eigen::PlainObjectBase<Eigen::Array<double, 4, 1, 0, 4, 1> >> = {<Eigen::ArrayBase<Eigen::Array<double, 4, 1, 0, 4, 1> >> = {<Eigen::DenseBase<Eigen::Array<double, 4, 1, 0, 4, 1> >> = {<Eigen::DenseCoeffsBase<Eigen::Array<double, 4, 1, 0, 4, 1>, 3>> = {<Eigen::DenseCoeffsBase<Eigen::Array<double, 4, 1, 0, 4, 1>, 1>> = {<Eigen::DenseCoeffsBase<Eigen::Array<double, 4, 1, 0, 4, 1>, 0>> = {<Eigen::EigenBase<Eigen::Array<double, 4, 1, 0, 4, 1> >> = {<No data fields>}, <No data fields>}, <No data fields>}, <No data fields>}, <No data fields>}, <No data fields>}, m_storage = {m_data = {array = {0, 1, 2, 3}}}}, <No data fields>}
+
+(gdb) print dynamic_
+$2 = {<Eigen::PlainObjectBase<Eigen::Array<double, -1, 1, 0, -1, 1> >> = {<Eigen::ArrayBase<Eigen::Array<double, -1, 1, 0, -1, 1> >> = {<Eigen::DenseBase<Eigen::Array<double, -1, 1, 0, -1, 1> >> = {<Eigen::DenseCoeffsBase<Eigen::Array<double, -1, 1, 0, -1, 1>, 3>> = {<Eigen::DenseCoeffsBase<Eigen::Array<double, -1, 1, 0, -1, 1>, 1>> = {<Eigen::DenseCoeffsBase<Eigen::Array<double, -1, 1, 0, -1, 1>, 0>> = {<Eigen::EigenBase<Eigen::Array<double, -1, 1, 0, -1, 1> >> = {<No data fields>}, <No data fields>}, <No data fields>}, <No data fields>}, <No data fields>}, <No data fields>}, m_storage = {m_data = 0x55555556beb0, m_rows = 4}}, <No data fields>}
+```
+
+We can find values for `static_` at `array = {...}`, but this is inconvenient. A
+better way is to print the member variable `m_storage`:
+
+```
+(gdb) print static_.m_storage
+$3 = {m_data = {array = {0, 1, 2, 3}}}
+(gdb) print dynamic_.m_storage
+$4 = {m_data = 0x55555556beb0, m_rows = 4}
+```
+
+We can see stored values for the static array because they are stored on the
+stack. The dynamic array values are on the heap so we only see the address of
+the first element and the number of elements. We can use that information to
+print the stored values with the `print *pointer@N` syntax, which shows
+`N` continguous values starting at address `pointer`:
+
+```
+(gdb) print *dynamic_.m_storage.m_data@4
+$5 = {0, 1, 2, 3}
+```
+
+Note that this can only show values as a 1D sequence, so the order of the values
+for 2D matrices depends on if matrices are row- or column-major.
+
+A less crude way to print values would be to use Eigen's [pretty
+printer](https://gitlab.com/libeigen/eigen/-/blob/master/debug/gdb/printers.py)
+for GDB. Follow the instructions in the file to install. You might have to add
+`set auto-load safe-path /` to `~/.gdbinit` to enable loading of foreign python
+code.
