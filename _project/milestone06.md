@@ -24,14 +24,18 @@ algorithm.
 
 ## Neighbor list search
 
-The rough alorigthm for searching for neighbors is described in the lecture material. We here provide an implementation and tests for you: [neighbors.h](neighbors.h) [neighbors.cpp](neighbors.cpp) [test_neighbors.cpp](test_neighbors.cpp) The neighbor list class needs to be initialized with the cutoff range (i.e. the interaction range of the potential):
+The rough alorigthm for searching for neighbors is described in the lecture
+material. We here provide an implementation and tests for you:
+[neighbors.h](neighbors.h) [neighbors.cpp](neighbors.cpp)
+[test_neighbors.cpp](test_neighbors.cpp). The neighbor list class can be
+instanciated as:
 ```c++
-NeighborList neighbor_list(5.0);
+NeighborList neighbor_list;
 ```
-The object `neighbor_list` (or whatever variable name you may have chosen) then holds the neighbor list. Update the neighbor list
-via
+The object `neighbor_list` (or whatever variable name you may have chosen) then
+holds the neighbor list. Update the neighbor list with a cutoff value:
 ```c++
-neighbor_list.update(atoms)
+neighbor_list.update(atoms, 5.0);
 ```
 where `atoms` is an object of type `Atoms` that holds you positions and velocities. You can then loop over _pairs_ of atoms
 ```c++
