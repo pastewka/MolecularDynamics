@@ -36,8 +36,8 @@ TEST(NeighborsTest, Test1) {
                  0, 0, 0, 0;
 
     Atoms atoms(names, positions);
-    NeighborList neighbor_list(1.5);
-    auto &[seed, neighbors]{neighbor_list.update(atoms)};
+    NeighborList neighbor_list;
+    auto &[seed, neighbors]{neighbor_list.update(atoms, 1.5)};
 
     // All atoms except 3 and 4 are neighbors of each other
     EXPECT_EQ(neighbor_list.nb_neighbors(), 10);
@@ -62,10 +62,10 @@ TEST(NeighborsTest, FirstAtomHasNoNeighbor) {
                  0, 0, 0, 0;
 
     Atoms atoms(names, positions);
-    NeighborList neighbor_list(5.0);
+    NeighborList neighbor_list;
     neighbor_list.update(atoms);
 
-    auto &[seed, neighbors]{neighbor_list.update(atoms)};
+    auto &[seed, neighbors]{neighbor_list.update(atoms, 5.0)};
 
     EXPECT_EQ(neighbor_list.nb_neighbors(), 2);
 
@@ -92,10 +92,10 @@ TEST(NeighborsTest, LastAtomHasNoNeighbor) {
                  0, 0, 0;
 
     Atoms atoms(names, positions);
-    NeighborList neighbor_list(5.0);
+    NeighborList neighbor_list;
     neighbor_list.update(atoms);
 
-    auto &[seed, neighbors]{neighbor_list.update(atoms)};
+    auto &[seed, neighbors]{neighbor_list.update(atoms, 5.0)};
 
     EXPECT_EQ(neighbor_list.nb_neighbors(), 2);
 
@@ -121,10 +121,10 @@ TEST(NeighborsTest, AtomsHaveNoNeighbors) {
                  0, 0, 0, 0;
 
     Atoms atoms(names, positions);
-    NeighborList neighbor_list(0.5);  // this is below the smallest distance
+    NeighborList neighbor_list;  // this is below the smallest distance
     neighbor_list.update(atoms);
 
-    auto &[seed, neighbors]{neighbor_list.update(atoms)};
+    auto &[seed, neighbors]{neighbor_list.update(atoms, 0.5)};
 
     EXPECT_EQ(neighbor_list.nb_neighbors(), 0);
 
