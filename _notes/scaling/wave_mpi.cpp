@@ -84,7 +84,7 @@ void second_derivative_fd(MPI_Comm comm, Ref<ArrayXd> u_second, Ref<ArrayXd> u,
       second_order_fd(u.head(n), u.segment(1, n), u.tail(n), dx);
 
   // If nonblocking comms are used, we wait for ghost here
-  // MPI_Wait(&request, nullptr);
+  // MPI_Wait(&request, MPI_STATUS_IGNORE);
 
   // Compute second derivative involving ghosts
   // For left and right ranks, some ghosts will be undefined

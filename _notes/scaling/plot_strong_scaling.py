@@ -15,7 +15,7 @@ for file in sys.argv[1:]:
     plot_scaling(ax, file)
 
 ax.axline((1, 1), (16, 16), ls='--', color='k')
-ax.axvline(20, ls='--', color='gray')
+# ax.axvline(20, ls='--', color='gray')
 ax.grid()
 ax.set_xscale('log', base=2)
 ax.set_yscale('log', base=2)
