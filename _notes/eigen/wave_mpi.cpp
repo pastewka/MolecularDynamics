@@ -1,10 +1,9 @@
 #include <Eigen/Core>
 #include <mpi.h>
 #include <array>
-#include <numeric>
-#include <functional>
 #include <chrono>
 #include <iostream>
+#include <sstream>
 
 using namespace Eigen;
 
@@ -122,7 +121,9 @@ void synchronized_out(MPI_Comm comm, Ref<ArrayXd> u) {
   auto rank = get_rank(comm), size = get_size(comm);
   ArrayXi sizes(size), displ(size);
   MPI_Gather(&local_N, 1, MPI_INT, sizes.data(), 1, MPI_INT, 0, comm);
-  std::exclusive_scan(sizes.begin(), sizes.end(), displ.begin(), 0, std::plus<>());
+
+  for (int i = 1; i < size; ++i)
+      displ[i] = sizes[i] + displ[i - 1];
 
   ArrayXd u_gathered((rank == 0) ? N : 1);
   MPI_Gatherv(u.data(), u.size(), MPI_DOUBLE,
@@ -133,11 +134,20 @@ void synchronized_out(MPI_Comm comm, Ref<ArrayXd> u) {
     std::cout << u_gathered.transpose() << "\n";
 }
 
-int main() {
+int main(int argc, char* argv[]) {
   mpi_guard guard{};  // Takes care of the calls to MPI_Init and MPI_Finalize
 
+  std::stringstream args;
+  for (int i = 1; i < argc; ++i)
+      args << argv[i];
+
   // Problem definition
-  auto N = 100000;
+  int N = 100000;
+
+  // Read from argument if present
+  if (argc >= 2)
+      args >> N;
+
   auto L = 20.;
   auto dx = L / (N - 1);
   auto dt = 0.01;
