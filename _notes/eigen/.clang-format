@@ -1,0 +1,9 @@
+---
+Language:                            Cpp
+BasedOnStyle:                        LLVM
+Standard:                            Cpp11
+AlwaysBreakTemplateDeclarations:     true
+PointerAlignment:                    Left
+SpacesBeforeTrailingComments:        2
+#FixNamespaceComments:		     true
+...
