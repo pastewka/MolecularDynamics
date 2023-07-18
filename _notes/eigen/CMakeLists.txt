@@ -38,3 +38,14 @@ link_libraries(Eigen3::Eigen)
 
 add_executable(wave wave.cpp)
 add_executable(kinetic kinetic_energy.cpp)
+
+# Option to turn ON/OFF MPI
+option(USE_MPI "Activate MPI")
+
+# Find MPI if requested
+if(USE_MPI)
+  find_package(MPI 3 REQUIRED)
+  add_executable(wave_mpi wave_mpi.cpp)
+  target_include_directories(wave_mpi PUBLIC ${MPI_CXX_INCLUDE_DIRS} SYSTEM)
+  target_link_libraries(wave_mpi PUBLIC MPI::MPI_CXX)
+endif()

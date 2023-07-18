@@ -56,8 +56,11 @@ int main() {
 
   ArrayXd u(N), u_first(N), u_second(N);
 
+  // Initial conditions
   u = sin(4 * M_PI * x / L) * exp(-abs(x));
+  u_first = 0;
 
+  // Compute second derivative a first time
   second_derivative_fd(u_second, u, dx);
 
   for (auto i = 0; i < steps; ++i) {
