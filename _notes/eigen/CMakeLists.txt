@@ -14,7 +14,6 @@ if(NOT Eigen3_FOUND)
     Eigen3
     URL https://gitlab.com/libeigen/eigen/-/archive/3.4.0/eigen-3.4.0.tar.gz
     URL_HASH SHA256=8586084f71f9bde545ee7fa6d00288b264a2b7ac3607b974e54d13e7162c1c72
-    DOWNLOAD_EXTRACT_TIMESTAMP TRUE
   )
 
   # We are not using FetchContent_MakeAvailable since that pulls in all
@@ -35,6 +34,7 @@ if(NOT Eigen3_FOUND)
 endif()
 
 link_libraries(Eigen3::Eigen)
+set(CMAKE_CXX_STANDARD 17)
 
 add_executable(wave wave.cpp)
 add_executable(kinetic kinetic_energy.cpp)
