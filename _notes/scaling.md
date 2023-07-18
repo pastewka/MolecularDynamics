@@ -76,7 +76,7 @@ information. On Linux, the `lscpu`, `lspci`, `lsmem`, `lsusb` and `lsblk`, `ip
 address` are extremely useful to probe the hardware, respectively the CPU,
 PCI(e) devices, RAM, USB devices, disks (block devices), and network interfaces.
 To go further, the package `hwloc` can help show a digestable diagram of
-computing resources. Here is for example Nemo's hardware topology extracted with
-the `lstopo` command:
+computing resources. Here is for example Nemo's hardware topology for a single
+node (the login node) extracted with the `lstopo` command:
 
 ![Hardware topology on Nemo](scaling/nemo_topology.png)
