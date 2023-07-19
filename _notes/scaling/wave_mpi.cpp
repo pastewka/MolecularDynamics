@@ -9,7 +9,8 @@ using namespace Eigen;
 
 // RAII object for MPI init calls
 struct mpi_guard {
-  mpi_guard() { MPI_Init(0, nullptr); }
+  mpi_guard(int* argc, char*** argv) { MPI_Init(argc, argv); }
+  mpi_guard() : mpi_guard(nullptr, nullptr) {}
   ~mpi_guard() { MPI_Finalize(); }
 };
 
@@ -128,6 +129,7 @@ void synchronized_out(MPI_Comm comm, int N, Ref<ArrayXd> u) {
   // Gather local sizes and compute all offsets
   auto rank = get_rank(comm), size = get_size(comm);
   ArrayXi sizes(size), displ(size);
+  sizes = displ = 0;
   MPI_Gather(&local_N, 1, MPI_INT, sizes.data(), 1, MPI_INT, 0, comm);
 
   for (int i = 1; i < size; ++i)
@@ -147,7 +149,7 @@ void synchronized_out(MPI_Comm comm, int N, Ref<ArrayXd> u) {
 }
 
 int main(int argc, char* argv[]) {
-  mpi_guard guard{};  // Takes care of the calls to MPI_Init and MPI_Finalize
+  mpi_guard guard;  // Takes care of the calls to MPI_Init and MPI_Finalize
 
   // Load arguments
   std::stringstream args;
@@ -155,7 +157,7 @@ int main(int argc, char* argv[]) {
     args << argv[i];
 
   // Problem definition
-  int N = 100000;
+  int N = 1000;
 
   // Read from argument if present
   if (argc >= 2)
@@ -207,15 +209,15 @@ int main(int argc, char* argv[]) {
   // We time our run loop
   const auto tik = clock::now();
   for (auto i = 0; i < steps; ++i) {
-    // synchronized_out(comm, u);
+    synchronized_out(comm, N, u);
     verlet(comm, u_second, u_first, u, dt, dx);
   }
   const auto tok = clock::now();
 
   // Print loop time on root rank (in miliseconds)
-  if (rank == 0) {
-    std::cout << (tok - tik) / 1ms;
-  }
+  // if (rank == 0) {
+  //   std::cout << (tok - tik) / 1ms;
+  // }
 
   return 0;
 }
