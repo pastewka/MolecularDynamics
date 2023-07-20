@@ -9,8 +9,8 @@ nav_order: 3
 
 Here are the helper files for this section:
 
-- [CMakeLists.txt](eigen/CMakeLists.txt)
-- [wave_mpi.cpp](eigen/wave_mpi.cpp)
+- [CMakeLists.txt](scaling/CMakeLists.txt)
+- [wave_mpi.cpp](scaling/wave_mpi.cpp)
 
 # Strong scaling
 
