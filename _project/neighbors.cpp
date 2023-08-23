@@ -34,6 +34,13 @@ NeighborList::update(const Atoms &atoms, double cutoff) {
     // Shorthand for atoms.positions.
     auto &&r{atoms.positions};
 
+    // Avoid computing if atoms is empty
+    if (r.size() == 0) {
+      seed_.resize(0);
+      neighbors_.resize(0);
+      return {seed_, neighbors_};
+    }
+
     // Origin stores the bottom left corner of the enclosing rectangles and
     // lengths the three Cartesian lengths.
     Eigen::Array3d origin{3}, lengths{3}, padding_lengths{3};
