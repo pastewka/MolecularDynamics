@@ -51,7 +51,7 @@ After logging in to bwUniCluster at `uc2.scc.kit.edu`, you will need to set up y
 Please load the following modules (just execute these commands at the command line):
 
 ```bash
-module load compiler/gnu devel/cmake mpi/openmpi
+module load compiler/gnu mpi/openmpi
 module list
 ```
 
@@ -64,15 +64,15 @@ mkdir build
 cd build
 ```
 
-Run `CMake` to configure your build:
+Run `Meson` to configure your build:
 ```bash
-cmake -DCMAKE_BUILD_TYPE=Release ..
+meson setup builddir --buildtype=release
 ```
-The two dots `..` tell CMake where the sources are located. If you create a build directory somewhere else, you may need to provide the full path to your sources there.
+You need to switch to the directory `builddir` to compile the code.
 
 Compile the code:
 ```bash
-make
+meson compile
 ```
 
 ## Running simulations

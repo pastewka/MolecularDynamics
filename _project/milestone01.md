@@ -12,8 +12,8 @@ nav_order: 2
 ## Learning goals
 
 The student will...
-* ...be able to compile a C++ project with CMake.
-* ...be able to specify build types of a CMake project.
+* ...be able to compile a C++ project with Meson.
+* ...be able to specify build types of a Meson project.
 
 ## Introduction
 
@@ -27,7 +27,7 @@ The starting point of your project is setting up a proper build environment.
 This means, you need to install and test all tools necessary for the project.
 In particular, you will need:
 * A C++ compiler
-* [CMake](https://cmake.org) (at least version 3.11) for our build environment
+* [Meson](https://mesonbuild.com) (at least version 0.54.0) for our build environment
 * An [MPI](https://en.wikipedia.org/wiki/Message_Passing_Interface) installation
 
 We provide installation instructions for [Ubuntu](https://ubuntu.com/)
@@ -40,7 +40,7 @@ instructions also apply for Ubuntu installed within WSL.
 Once you have these things set up, open a command shell and type
 ```bash
 sudo apt-get update
-sudo apt-get install gcc make cmake cmake-curses-gui gdb valgrind mpi-default-dev
+sudo apt-get install gcc make meson ninja-build gdb valgrind mpi-default-dev
 ```
 Note that if you are on a different system than Ubuntu, these commands may differ.
 On [Ubuntu](https://ubuntu.com/)/[Debian](https://www.debian.org/) it is `apt` or `apt-get`
@@ -59,7 +59,7 @@ to use WSL. (Documentation on CLion and WSL can be found [here](https://www.jetb
 
 The first thing you need to do is to set up your build environment. We have
 done this for you and provide a template repository here:
-[https://github.com/imtek-simulation/cmake-skeleton/](https://github.com/imtek-simulation/cmake-skeleton/).
+[https://github.com/imtek-simulation/meson-skeleton/](https://github.com/imtek-simulation/meson-skeleton/).
 We will now be walking you through the process of obtaining this skeleton repository
 from the command line. You can also carry out the whole process within CLion.
 
@@ -79,7 +79,7 @@ git clone git@github.com:pastewka/yamd.git
 code now resides in the subdirectory "yamd". Note that if you do not want to work
 on github, you can also directly check out the template repository.
 
-Our template repository has existing CMake files. Those CMake files are set up
+Our template repository has existing Meson files. Those Meson files are set up
 to automatically download the libraries
 
 * [Eigen](https://eigen.tuxfamily.org/) for basic (array) data structures and
@@ -110,10 +110,10 @@ This milestone requires the following tasks:
 * Create a repository for your code development from our template.
 * Carefully read the `README.md` file in your fresh code repository.
 * Compile the template, run first milestone executable and tests, for the
-  following build configurations:
-  - `CMAKE_BUILD_TYPE=Debug`
-  - `CMAKE_BUILD_TYPE=Release`
+  following configuration options:
+  - `--buildtype=debug`
+  - `--buildtype=release`
 
 We provide the following files for you:
 
-* Skeleton repository at [https://github.com/imtek-simulation/cmake-skeleton/](https://github.com/imtek-simulation/cmake-skeleton/)
+* Skeleton repository at [https://github.com/imtek-simulation/meson-skeleton/](https://github.com/imtek-simulation/meson-skeleton/)

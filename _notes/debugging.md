@@ -14,16 +14,16 @@ as is writing safe, expressive, and modern C++. We will cover the basics in this
 
 ## Prerequisites
 
-Make sure you have a full GCC, GDB and CMake installation:
+Make sure you have a full GCC, GDB and Meson installation:
 
 ```bash
-sudo apt install g++ gdb cmake
+sudo apt install g++ gdb meson ninja-build
 gdb --tui # <- this should not give an error message
 ```
 
 We'll work on the following files, which you can now download:
 
-- [CMakeLists.txt](debug/CMakeLists.txt)
+- [meson.build](debug/meson.build)
 - [nullpointer.cpp](debug/nullpointer.cpp)
 - [localaddress.cpp](debug/localaddress.cpp)
 - [outofbounds.cpp](debug/outofbounds.cpp)
@@ -33,51 +33,64 @@ Put these files in a folder **seperate** from the class project.
 
 ## Compile
 
-Run the standard CMake workflow to get started:
+Run the standard Meson workflow to get started:
 
 ```bash
-mkdir build
-cd build
-cmake -DCMAKE_BUILD_TYPE=Debug ..
-make
+meson setup builddir --buildtype=debug
+cd builddir
+meson compile
 
 # To compile after changes to sources:
-make  # reruns cmake if needed
+meson compile  # reruns Meson if needed
 
 # To change build type
-cmake -DCMAKE_BUILD_TYPE=Release ..
-make
+meson setup --reconfigure --buildtype=release
+meson compile
 ```
 
-More information on `CMAKE_BUILD_TYPE`: [Default and Custom
-Configurations](https://cmake.org/cmake/help/latest/manual/cmake-buildsystem.7.html#default-and-custom-configurations).
+More information on `buildtype`: [Details for `buildtype`](https://mesonbuild.com/Builtin-options.html#details-for-buildtype).
 
 ### Compiling other files
 
 You'll notice that `localaddress.cpp` and `outofbounds.cpp` are not compiled. To
-create executables, add these lines at the end of `CMakeLists.txt` and compile
+create executables, add these lines at the end of `meson.build` and compile
 again.
 
-```cmake
-add_executable(localaddress localaddress.cpp)
-add_executable(outofbounds outofbounds.cpp)
+```meson
+executable(
+  'localaddress',
+  'localaddress.cpp',
+  dependencies : [eigen]
+)
+
+executable(
+  'outofbounds',
+  'outofbounds.cpp',
+  dependencies : [eigen]
+)
 ```
 
 ### Adding compilation flags
 
-To add compilation flags for all targets:
+To add compilation flags for all targets, add them to the `default_options` parameter of `project`:
 
-```cmake
-add_compile_options(-Wall)                     # activates bare minimum warnings
-add_compile_options(-Wall -Wextra -Wpedantic)  # recommended
+```meson
+project(
+    'my-project',
+    ['c', 'cpp'],
+    default_options : [
+        'warning_level=3',  # Passes -Wall -Wextra -Wpedantic to compile
+    ],
+    version : '0.1'
+)
 ```
 
 The [AddressSanitizer (Asan)](https://clang.llvm.org/docs/AddressSanitizer.html)
 needs compilation **and** link flags:
 
-```cmake
-add_compile_options(-fsanitize=address)
-add_link_options(-fsanitize=address)
+```meson
+add_project_arguments('-fsanitize=address', language : ['c', 'cpp'])
+add_project_link_arguments('-fsanitize=address', language : ['c', 'cpp'])
 ```
 
 ## Debugging
@@ -90,10 +103,10 @@ where the bug is, it is very useful to use a debugger like the GNU Debugger
 
 ### Compiling
 
-Make sure you ran CMake in `Debug` mode:
+Make sure you ran Meson in `Debug` mode:
 
 ```bash
-cmake -DCMAKE_BUILD_TYPE=Debug ..
+meson setup builddir --buildtype=debug
 ```
 This turns *off* code optimizations (`-O0` compiler flag) and adds debugging
 symbols to the executable (`-g` compiler flag), which are both necessary to
@@ -111,7 +124,7 @@ gdb --tui ./nullpointer
 ```
 
 The top window should show you the source code (if not, make sure you compile
-with `-DCMAKE_BUILD_TYPE=Debug`). If the top windows is highlighted with a blue
+with `--buildtype=debug`). If the top windows is highlighted with a blue
 border, you can use the arrow keys to navigate the code. Use the shortcut `C-x
 o` (Ctrl-X then O), to alternate focus between the top and bottom window. If the
 focus is not on the top window, the arrow keys will cycle the command history
@@ -165,7 +178,7 @@ of the crash.
 Below are versions of the files above where we used idiomatic C++, the standard
 library and Eigen instead of C++-flavoured C:
 
-- [CMakeLists.txt](debug/fixed/CMakeLists.txt)
+- [meson.build](debug/fixed/meson.build)
 - [nullpointer.cpp](debug/fixed/nullpointer.cpp)
 - [localaddress.cpp](debug/fixed/localaddress.cpp)
 - [outofbounds.cpp](debug/fixed/outofbounds.cpp)

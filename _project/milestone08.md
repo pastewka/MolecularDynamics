@@ -26,12 +26,11 @@ Starting with this milestone, we will make use of the [Message Passing Interface
 
 ### Build system
 
-The skeleton repository that we provided for you needs to augmented with the configuration for MPI. The toplevel `CMakeLists.txt` needs the following statements:
-```m4
-find_package(MPI REQUIRED)
-include_directories(SYSTEM ${MPI_INCLUDE_PATH})
+The skeleton repository that we provided for you needs to augmented with the configuration for MPI. The toplevel `meson.build` needs the following statements:
+```meson
+mpi = dependency('mpi', language: 'cpp')
 ```
-Add these after the `add_external_package` command that configures `Eigen3`. This will then enable MPI for your project. This means from now on all your code is compiled with the MPI compiler wrapper `mpicc`, `mpicxx` or `mpic++` that takes care of linking you program to the correct MPI libraries. You can still run your program (`milestone08`) in a normal fashion (as you have done in the past milestones); this is equivalent to running on a single process via `mpirun -n 1 ./milestone08`.
+You then need to add `mpi` as a dependency to your build targets using the optional `dependencies` argument. This will then enable MPI for your project. This means from now on all your code is compiled with the MPI compiler wrapper `mpicc`, `mpicxx` or `mpic++` that takes care of linking you program to the correct MPI libraries. You can still run your program (`milestone08`) in a normal fashion (as you have done in the past milestones); this is equivalent to running on a single process via `mpirun -n 1 ./milestone08`.
 
 ### Running MPI codes
 

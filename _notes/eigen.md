@@ -9,11 +9,23 @@ nav_order: 3
 
 Here are the helper files for this section:
 
-- [CMakeLists.txt](eigen/CMakeLists.txt)
+- [meson.build](eigen/meson.build)
 - [wave.cpp](eigen/wave.cpp)
 - [kinetic_energy.cpp](eigen/kinetic_energy.cpp)
 - [animate.py](eigen/animate.py)
 - [plot.py](eigen/plot.py)
+
+# Meson
+
+To install Eigen as a dependency, create a `subprojects` directory and run
+```
+meson wrap install eigen
+```
+You can then use
+```meson
+eigen = dependency('eigen', version : '>=3.4.0')
+```
+to define Eigen as dependency of your code. 
 
 # Kinetic energy
 

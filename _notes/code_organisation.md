@@ -129,15 +129,23 @@ g++ -E main.cpp main.E
 You'll see that the entire content of `square.hh` was duplicated into `main.E`.
 The whole content of `main.E` is called a **translation unit**.
 
-### Using CMake
+### Using Meson
 
-CMake handles the two compilation stages transparently, so that the following
-`CMakeLists.txt` should create the correct executable:
+Meson handles the two compilation stages transparently, so that the following
+`meson.build` should create the correct executable:
 
-```cmake
-project(compilation_example)
+```meson
+project(
+   'compilation_example',
+   ['cpp'],
+   default_options : ['cpp_std=c++17'],
+   version : 0.1
+)
 
-add_executable(square_example main.cpp square.cpp)
+executable(
+   'compilation_example',
+   'main.cpp'
+)
 ```
 
 ## Exceptions to the header/implementation rules

@@ -25,7 +25,7 @@ $$E_\text{pot} = \frac{1}{2} \sum_{ij} 4 \varepsilon \left[ \left(\frac{\sigma}{
 The term \\(\propto r^{-12}\\) is a simple model for Pauli repulsion and the term \\(\propto r^{-6}\\) is a model for London dispersion forces.
 Within this milestone, you will implement this potential via direct summation, i.e. directly using the equation given above without cutting it off at a certain distance.
 
-Note that it can be useful to create a separate build target with a separate `main.cpp` for this milestone. Our notes on [`CMake`](../_notes/CMake) describe how to do that.
+Note that it can be useful to create a separate build target with a separate `main.cpp` for this milestone. Our notes on [`Meson`](../_notes/Meson) describe how to do that.
 
 ## A data structure for the atomic system
 
@@ -96,7 +96,7 @@ $$ f'(x) \approx \frac{f(x+\Delta x) - f(x-\Delta x)}{2 \Delta x}$$
 
 A formal derivation of this expression can be obtained from a Taylor expansion of \\(f(x)\\). We can use this expression to compute numerical
 estimates of the forces. A test that uses this to test the analytical forces of the potential can be found here: [test_lj_direct_summation.cpp](test_lj_direct_summation.cpp).
-Place this file in your `tests` subdirectory and add it to the `CMakeLists.txt` to use it. Open it in an editor and try to understand how the test works.
+Place this file in your `tests` subdirectory and add it to the `meson.build` to use it. Open it in an editor and try to understand how the test works.
 This type of test is often called a _gradient test_.
 
 ## A first molecular dynamics calculation

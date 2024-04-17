@@ -19,7 +19,7 @@ on latest Ubuntu. This also works if you are running Ubuntu through the Windows 
 
 ## Compiling
 
-`CMake` will take care of all your compilation needs. However, should you need to compile an MPI parallel code manually, you need to use the MPI compiler wrappers. Those are `mpicc` for standard C code and `mpic++` for C++ code.
+`Meson` will take care of all your compilation needs. However, should you need to compile an MPI parallel code manually, you need to use the MPI compiler wrappers. Those are `mpicc` for standard C code and `mpic++` for C++ code.
 
 Try compiling the following program
 ```c++

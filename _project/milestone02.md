@@ -18,7 +18,7 @@ The student will...
 ## Introduction
 
 In this second milestone you will implement a Velocity-Verlet integrator. You will learn about header and source
-files and how to add them to the CMake build system. You will also need to think about *testing*, i.e. how to systematically test an implementation. Testing makes sure your new function works correctly but it also makes
+files and how to add them to the Meson build system. You will also need to think about *testing*, i.e. how to systematically test an implementation. Testing makes sure your new function works correctly but it also makes
 sure that you will notice when you break it in the future. Note that we explain only the very basics of the
 relevant C++ features here but link to more detailed explanation.
 
@@ -68,8 +68,8 @@ void verlet_step2(double &vx, double &vy, double &vz, double fx, double fy, doub
 Header and source files have typically extensions `.h` and `.cpp`. On Unix system, you sometimes find `.hh` and `.cc`
 for C++ code. C++ headers sometimes have the suffix `.hpp`.
 
-To compile the code, you need to add headers files to `MYPROJECT_HDRS` and sources files to `MYPROJECT_SRCS` in the
-main `CMakeLists.txt`. From the command-line, you can compile the code by running `make` in the `build` directory.
+To compile the code, you need to and sources files to `lib_sources` in the
+main `meson.build`. From the command-line, you can compile the code by running `meson compile` in the `builddir` directory.
 
 ## Adding new test cases
 
@@ -80,7 +80,7 @@ of your molecular dynamics code. We will outline possible testing strategies in 
 One possible test strategy for numerical code is to compare a numerical solution against a known analytical solution.
 We are here solving Newton's equation of motion. A possible analytical solution would be the motion of an atom under a constant force, since this is straightforward to solve.
 
-To add a new test, create a new file to the `tests` subdirectory and add it to the `myproject_tests_SRCS` in `CMakeLists.txt`
+To add a new test, create a new file to the `tests` subdirectory and add it to the `test_sources` in `meson.build`
 in the `tests` directory. You can copy the file `test_hello_world.cpp` as a template. The project uses [Googletest](https://google.github.io/googletest/).
 Please browse the documentation and look at the primer on the documentation page.
 

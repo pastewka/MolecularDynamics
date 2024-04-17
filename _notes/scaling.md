@@ -9,7 +9,7 @@ nav_order: 3
 
 Here are the helper files for this section:
 
-- [CMakeLists.txt](scaling/CMakeLists.txt)
+- [meson.build](scaling/meson.build)
 - [wave_mpi.cpp](scaling/wave_mpi.cpp)
 
 # Strong scaling
