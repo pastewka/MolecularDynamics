@@ -11,9 +11,15 @@ nav_order: 3
 
 We'll start with the following files:
 
-- [CMakeLists.txt](benchmarks/CMakeLists.txt)
+- [meson.build](benchmarks/meson.build)
 - [gemv_benchmarks.cpp](benchmarks/gemv_benchmarks.cpp)
 - [plot_benchmark.py](benchmarks/plot_benchmark.py)
+
+To compile, you need to instruct Meson to download Google benchmark:
+```bash
+mkdir subprojects
+meson wrap install google-benchmark
+```
 
 Once compiled, you can run the benchmark:
 ```
@@ -115,7 +121,10 @@ doubles per cycle). Comparing loop orders for a single layout (say col-major),
 you shold be able to see that the CPU spends most of its time on `movupd`
 instructions when the order of loops is wrong: it spends most of its time
 waiting for data. You can also try compiling with
-`-DCMAKE_CXX_FLAGS="-fno-tree-vectorize"` to disable the vectorized (SIMD, or
+```meson
+add_project_arguments('-fno-tree-vectorize', language : ['c', 'cpp'])
+```
+to disable the vectorized (SIMD, or
 packed) instructions, and see what kind of optimization the compiler still does
 to the col-major case.
 
@@ -219,8 +228,8 @@ information, we need to pass the `-fno-omit-frame-pointer` flag to the compiler:
 this enables reconstruction of the call stack when the program is interrupted by
 Perf.
 
-```bash
-cmake -DCMAKE_CXX_FLAGS="-fno-omit-frame-pointer -g" .. && make
+```meson
+add_project_arguments('-fno-omit-frame-pointer', language : ['c', 'cpp'])
 ```
 
 Now we can use Perf to record events from the program execution, including the
