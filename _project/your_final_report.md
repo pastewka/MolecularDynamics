@@ -11,7 +11,7 @@ nav_order: 1
 
 ## Documents you need to submit
 
-In order to pass the class, you will need to submit at **the beginning of the examination period of the summer term 2023 (on September 1, 2023)**:
+In order to pass the class, you will need to submit at **the end of the examination period of the summer term 2024 (on September 13, 2024)**:
 
 * A report, written in English or German, that describes your simulation code and results obtained with it.
 
@@ -19,7 +19,7 @@ In order to pass the class, you will need to submit at **the beginning of the ex
 
 * Instructions on how to run the code for different lattice dimensions, different ω and different domain decomposition grids.
 
-Please make sure to submit at the latest on **September 1, 2023, 2023, midnight**. All later submissions will count as fails.
+Please make sure to submit at the latest on **September 13, 2024, midnight**. All later submissions will count as fails.
 
 ## The report
 
