@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-#include <iostream>
+#include <algorithm>
 #include <numeric>
 
 #include "neighbors.h"
@@ -181,7 +181,7 @@ NeighborList::update(const Atoms &atoms, double cutoff) {
 
                 if (distance_sq <= cutoffsq) {
                     if (n >= neighbors_.size()) {
-                        neighbors_.conservativeResize(2 * neighbors_.size());
+                        neighbors_.conservativeResize(std::max(1L, 2 * neighbors_.size()));
                     }
                     neighbors_(n) = neighi;
                     n++;

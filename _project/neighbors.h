@@ -35,19 +35,16 @@ class NeighborList {
      * Update neighbor list from the particle positons stores in the `atoms`
      * argument
      */
-    const std::tuple<const Eigen::ArrayXi &, const Eigen::ArrayXi &>
-    update(const Atoms &atoms, double cutoff);
+    const std::tuple<const Eigen::ArrayXi &, const Eigen::ArrayXi &> update(const Atoms &atoms, double cutoff);
 
     /*
      * Return internal seed and neighbor arrays
      */
-    const std::tuple<const Eigen::ArrayXi &, const Eigen::ArrayXi &>
-    neighbors() const {
+    const std::tuple<const Eigen::ArrayXi &, const Eigen::ArrayXi &> neighbors() const {
         if (seed_.size() > 0) {
             return {seed_, neighbors_};
         } else {
-            throw std::runtime_error(
-                "Neighbor list not yet computed. Use `update` to compute it.");
+            throw std::runtime_error("Neighbor list not yet computed. Use `update` to compute it.");
         }
     }
 
@@ -71,17 +68,16 @@ class NeighborList {
     }
 
     class iterator {
-      // Defining types to be used in std::iterator_traits
-      // see https://en.cppreference.com/w/cpp/iterator/iterator_traits
-      using value_type = std::tuple<int, int>;
-      using difference_type = std::tuple<int, int>;
-      using pointer = std::tuple<int, int>*;
-      using reference = std::tuple<int, int>;
-      using iterator_category = std::input_iterator_tag;
+        // Defining types to be used in std::iterator_traits
+        // see https://en.cppreference.com/w/cpp/iterator/iterator_traits
+        using value_type = std::tuple<int, int>;
+        using difference_type = std::tuple<int, int>;
+        using pointer = std::tuple<int, int> *;
+        using reference = std::tuple<int, int>;
+        using iterator_category = std::input_iterator_tag;
 
       public:
-        explicit iterator(const Eigen::ArrayXi &seed,
-                          const Eigen::ArrayXi &neighbors, int i, int n)
+        explicit iterator(const Eigen::ArrayXi &seed, const Eigen::ArrayXi &neighbors, int i, int n)
             : seed_{seed}, neighbors_{neighbors}, i_{i}, n_{n} {}
 
         iterator &operator++() {
@@ -120,8 +116,7 @@ class NeighborList {
             }
             return iterator(seed_, neighbors_, i0, n0);
         } else {
-            throw std::runtime_error(
-                "Neighbor list not yet computed. Use `update` to compute it.");
+            throw std::runtime_error("Neighbor list not yet computed. Use `update` to compute it.");
         }
     }
 
@@ -130,30 +125,24 @@ class NeighborList {
      */
     iterator end() const {
         if (seed_.size() > 0) {
-            return iterator(seed_, neighbors_, seed_.size() - 2,
-                            nb_neighbors());
+            return iterator(seed_, neighbors_, seed_.size() - 2, nb_neighbors());
         } else {
-            throw std::runtime_error(
-                "Neighbor list not yet computed. Use `update` to compute it.");
+            throw std::runtime_error("Neighbor list not yet computed. Use `update` to compute it.");
         }
     }
 
   protected:
     template <typename T>
-    static decltype(auto)
-    coordinate_to_index(const T &x, const T &y, const T &z,
-                        const Eigen::Array3i &nb_grid_pts) {
+    static decltype(auto) coordinate_to_index(const T &x, const T &y, const T &z, const Eigen::Array3i &nb_grid_pts) {
         return x + nb_grid_pts(0) * (y + nb_grid_pts(1) * z);
     }
 
-    int coordinate_to_index(const Eigen::Array3i &c,
-                            const Eigen::Array3i &nb_grid_pts) {
+    int coordinate_to_index(const Eigen::Array3i &c, const Eigen::Array3i &nb_grid_pts) {
         return coordinate_to_index(c(0), c(1), c(2), nb_grid_pts);
     }
 
     template <typename Derived>
-    decltype(auto) coordinate_to_index(const Eigen::ArrayBase<Derived> &c,
-                                       const Eigen::Array3i &nb_grid_pts) {
+    decltype(auto) coordinate_to_index(const Eigen::ArrayBase<Derived> &c, const Eigen::Array3i &nb_grid_pts) {
         return coordinate_to_index(c.row(0), c.row(1), c.row(2), nb_grid_pts);
     }
 
